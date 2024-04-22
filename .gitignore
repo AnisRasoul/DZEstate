@@ -28,3 +28,6 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+
+# for serverconfig ask didou for access 
+serverconfig.js 
