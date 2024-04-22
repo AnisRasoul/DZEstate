@@ -6,16 +6,16 @@
     </div>
     
     <div class="flex items-center space-x-40">
-        <a href="#" class="uppercase text-[#235D76] hover:text-[#033C71] font-sans font-bold" >Home</a>
-        <a href="#" class="uppercase text-[#235D76] hover:text-[#033C71] font-sans font-bold">Buy</a>
-        <a href="#" class="uppercase text-[#235D76] hover:text-[#033C71] font-sans font-bold">Sell</a>
-        <a href="#" class="uppercase text-[#235D76] hover:text-[#033C71] font-sans font-bold">Rent</a>
+        <a href="#" class="uppercase text-[#235D76] hover:text-primary font-sans font-bold" >Home</a>
+        <a href="#" class="uppercase text-[#235D76] hover:text-primary font-sans font-bold">Buy</a>
+        <a href="#" class="uppercase text-[#235D76] hover:text-primary font-sans font-bold">Sell</a>
+        <a href="#" class="uppercase text-[#235D76] hover:text-primary font-sans font-bold">Rent</a>
     </div>
 
     <div class="flex items-center space-x-5">
-        <button class="bg-[#033C71] text-white px-10 py-2 rounded">login</button>
+        <button class="bg-primary text-white px-10 py-2 rounded">login</button>
         <DropdownMenu>
-    <DropdownMenuTrigger class="bg-[#033C71] text-white py-2 px-6 rounded">Lang</DropdownMenuTrigger>
+    <DropdownMenuTrigger class="bg-primary text-white py-2 px-6 rounded flex items-center">Lang <ChevronDown class="size-4 ml-1"/></DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuLabel>French</DropdownMenuLabel>
       <DropdownMenuSeparator />
@@ -43,6 +43,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { ChevronDown } from 'lucide-vue-next';
 
 export default {
 components:{
@@ -51,7 +52,9 @@ components:{
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,}
+  DropdownMenuTrigger,
+  ChevronDown,
+}
 }
 </script>
 

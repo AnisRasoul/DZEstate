@@ -33,6 +33,15 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      colors: {
+        primary: {
+          DEFAULT: '#033C71',
+          // You can add more shades of the color if needed
+          dark: '#022C59', // Optional, a darker shade
+          light: '#034E8C', // Optional, a lighter shade
+        },
+      },
+
     },
   },
   plugins: [animate],
