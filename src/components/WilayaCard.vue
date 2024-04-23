@@ -1,6 +1,6 @@
 <template>
     <div class="relative rounded-[25px] p-4"> <!-- Parent with relative positioning -->
-      <img :src="WilayaImg" alt="Wilaya Image" class="rounded-[10px] shadow-2xl shadow-black" /> <!-- Image to be overlaid -->
+      <img :src="WilayaImg" alt="Wilaya Image" class="rounded-[10px] shadow-2xl shadow-black transition-transform duration-300 ease-in-out hover:scale-105" /> <!-- Image to be overlaid -->
       <h1
         class="absolute top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-4xl uppercase tracking-[15px]"
       >

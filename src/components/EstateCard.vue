@@ -1,5 +1,5 @@
 <template>
-     <div class="bg-white flex items-center space-x-6 justify-center px-5 py-5 w-fit rounded-[35px] mx-auto">
+     <div class="bg-white flex items-center space-x-6 justify-center px-5 py-5 w-fit rounded-[35px] mx-auto transition-transform duration-300 ease-in-out hover:scale-105">
             <img :src="EstateImg" class="h-70 w-60 rounded-[20px]" alt="">
             <div>
               <h1 class="text-2xl font-bold my-3">{{ EstateTitle }}</h1>
