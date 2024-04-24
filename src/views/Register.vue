@@ -1,13 +1,86 @@
 <template>
-  <h1>Register here</h1>
+  <div class="min-h-screen grid grid-cols-2">
+    <!-- Left Panel with Gradient Background -->
+    <div class="Login p-20 text-white flex flex-col justify-center space-y-10">
+      <h1 class="text-8xl font-bold -tracking-tighter">DZEstate</h1>
+      <p class="text-3xl mt-3 tracking-[5px] uppercase">The most popular estate website of DZ</p>
+      <Button class="mt-6 bg-white text-primary w-[20%] text-xl py-6 rounded-[30px] hover:bg-primary hover:text-white">
+        Read More
+      </Button>
+    </div>
+
+    <!-- Right Panel with Form -->
+    <div class="bg-white p-12 flex flex-col justify-center">
+      <h2 class="text-5xl font-bold mb-3 mx-auto text-primary uppercase">Create an account</h2>
+
+      <form class="space-y-12 w-[50%] mx-auto my-10" @submit.prevent="register">
+        <div class="flex items-center space-x-3">
+          <User />
+          <Input placeholder="Username" type="text" class="text-xl" v-model="username" />
+        </div>
+        <div class="flex items-center space-x-3">
+          <Mail />
+          <Input placeholder="Your email" type="email" class="text-xl" v-model="email" />
+        </div>
+        <div class="flex items-center space-x-3">
+          <Lock />
+          <Input placeholder="Password" type="password" class="text-xl" v-model="password" />
+        </div>
+        <div class="flex flex-col space-y-5">
+          <Button class="bg-primary text-white rounded-[30px] py-6 text-xl font-semibold" type="submit">Sign Up</Button>
+          <h1 class="text-2xl font-semibold">Already have account?</h1>
+          <router-link to="login" class="text-xl text-primary text-center hover:underline">
+            Login here
+          </router-link>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
+import axios from 'axios';
+import Button from '@/components/ui/button/Button.vue';
+import { Input } from "@/components/ui/input";
+import { Mail, Lock, User } from 'lucide-vue-next';
 
-}
+export default {
+  components: { Button, Input, Mail, Lock, User },
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    async register() {
+      try {
+        const res = await axios.post('http://localhost:3333/register', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        });
+
+        if (res.data.success) {
+          localStorage.setItem('token', res.data.token);
+          this.$router.push('/'); // Redirects to the home page
+        } else {
+          alert(res.data.message);
+        }
+      } catch (error) {
+        console.error('Registration failed:', error);
+        alert('An error occurred during registration. Please try again.');
+      }
+    }
+  },
+};
 </script>
 
 <style>
-
+.Login {
+  background-image: url('../assets/Login/BG.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 </style>
