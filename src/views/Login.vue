@@ -13,17 +13,17 @@
     <div class="bg-white p-12 flex flex-col justify-center">
 
       <h2 class="text-5xl font-bold mb-3 mx-auto text-primary uppercase">Login into your account</h2>
-      <div class="space-y-12 w-[50%] mx-auto my-10">
+      <form class="space-y-12 w-[50%] mx-auto my-10" @submit.prevent="Login">
         <div class="flex items-center space-x-3">
           <Mail/>
-          <Input placeholder="Your email" type="email" class="text-xl"/>
+          <Input placeholder="Your email" type="email" class="text-xl" v-model="email"/>
         </div>
         <div class="flex items-center space-x-3">
           <Lock/>
-          <Input placeholder="Password" type="password" class="text-xl" />
+          <Input placeholder="Password" type="password" class="text-xl" v-model="password" />
         </div>
         <div class="flex flex-col space-y-5">
-        <Button class=" bg-primary text-white rounded-[30px] py-6 text-xl font-semibold">Login</Button>
+        <Button class=" bg-primary text-white rounded-[30px] py-6 text-xl font-semibold" type="submit">Login</Button>
         
 
         <h1 class="text-2xl font-semibold">Don't Have account?</h1>
@@ -32,7 +32,7 @@
         </router-link>
         </div>
 
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -40,10 +40,33 @@
 <script>
 import Button from '@/components/ui/button/Button.vue';
 import { Input } from "@/components/ui/input";
+import axios from 'axios';
 import { Mail } from 'lucide-vue-next';
 import { Lock } from 'lucide-vue-next';
 export default {
-components:{Button,Input,Mail,Lock}
+components:{Button,Input,Mail,Lock},
+data() {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+methods: {
+ async Login(){
+  try {
+  const res = await axios.post('http://localhost:3000/api/auth/login', {
+    email: this.email,
+    password: this.password,
+   
+  });
+  console.log('Post test successful:', res.data);
+  this.$router.push('/')
+  } 
+  catch (error) {
+    alert(error);
+  }
+  }
+}
 }
 </script>
 
