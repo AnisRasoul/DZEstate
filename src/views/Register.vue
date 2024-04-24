@@ -55,24 +55,18 @@ export default {
   },
   methods: {
     async register() {
-      try {
-        const res = await axios.post('http://localhost:3333/register', {
-          username: this.username,
-          email: this.email,
-          password: this.password
-        });
+  try {
+    const res = await axios.post('http://localhost:3000/api/auth/register', {
+      username: this.username,
+      email: this.email,
+      password: this.password
+    });
 
-        if (res.data.success) {
-          localStorage.setItem('token', res.data.token);
-          this.$router.push('/'); // Redirects to the home page
-        } else {
-          alert(res.data.message);
-        }
-      } catch (error) {
-        console.error('Registration failed:', error);
-        alert('An error occurred during registration. Please try again.');
-      }
-    }
+    console.log('Post test successful:', res.data);
+  } catch (error) {
+    alert(error);
+  }
+}
   },
 };
 </script>
