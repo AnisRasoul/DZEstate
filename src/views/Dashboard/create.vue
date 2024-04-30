@@ -1,5 +1,7 @@
 <template>
-  <h1>this is a dashobard</h1>
+    <div>
+  Create a property
+    </div>
 </template>
 
 <script>
