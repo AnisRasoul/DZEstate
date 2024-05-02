@@ -4,7 +4,10 @@
       <div class="w-[400px] h-full bg-gray-200 text-white" v-show="showSide">
         <div class="h-[50px] bg-gray-900 flex justify-start  items-center ">
           <div class="px-[20px]">
-            <h3 class="font-bold text-xl">Admin Dashboard</h3>
+            <div class="flex items-center">
+            <a href="/"><h1 class="text-4xl font-extrabold">DZEstate</h1></a>
+  
+    </div>
           </div>
         </div>
         <div class="h-[calc(100vh-50px)] bg-gray-800 py-[20px]">
@@ -79,9 +82,9 @@ export default {
     return {
       showSide: true,
       sidebarLinks: [
-        { route: '/home', icon: 'CircleUserRound', label: 'Profile' },
-        { route: '/profile', icon: 'BedSingle', label: 'Properties' },
-        { route: '/create', icon: 'SquarePlus', label: 'Create a Property' },
+        { route: '/dashboard/home', icon: 'CircleUserRound', label: 'Profile' },
+        { route: '/dashboard/profile', icon: 'BedSingle', label: 'Properties' },
+        { route: '/dashboard/create', icon: 'SquarePlus', label: 'Create a Property' },
       ],
     };
   },
