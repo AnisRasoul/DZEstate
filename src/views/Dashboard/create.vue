@@ -1,12 +1,12 @@
 <template>
-
+   <form @submit.prevent="createProperty">
     <div class="space-y-4">
       <div class="flex flex-col space-y-2">
         <Label htmlFor="property">Property Name</Label>
-        <Input id="property" placeholder="Enter your property name" />
+        <Input id="property" v-model="title" placeholder="Enter your property name" />
       </div>
       <div class="flex flex-col space-y-2">
-        <Select>
+        <Select v-model="type" >
           <SelectTrigger>
             <SelectValue placeholder="Select a property type" />
           </SelectTrigger>
@@ -56,7 +56,7 @@
         Save Changes
       </Button>
     </div>
-
+  </form>
 </template>
 
 <script>
@@ -86,6 +86,7 @@ import {
 import { Slider } from '@/components/ui/slider'
 import { toast } from '@/components/ui/toast'
 import DropFile from '@/components/DropFile.vue'
+import axios from 'axios';
 
 export default {
   components: {
@@ -107,8 +108,42 @@ export default {
     toast,
     Button,
   },
+  methods: {
+    async createProperty() {
+      try {
+        const formData = new FormData();
+        formData.append('title', this.title);
+        formData.append('description', this.description);
+        formData.append('price', this.price);
+        formData.append('location', this.location);
+        formData.append('type', this.type);
+        // Append images to formData
+        for (let i = 0; i < this.images.length; i++) {
+          formData.append('images', this.images[i]);
+        }
+
+        const res = await axios.post('https://dzestate-back.azurewebsites.net/api/prop', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        console.log('Property created:', res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  },
+
   data() {
     return {
+      title: '',
+      description: '',
+      price: '',
+      location: '',
+      type: '',
+      images: [],
       propertyTypes: ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8'],
     }
   },

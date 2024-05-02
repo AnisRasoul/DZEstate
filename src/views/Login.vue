@@ -54,7 +54,7 @@ data() {
 methods: {
  async Login(){
   try {
-  const res = await axios.post('https://dzestate-back.onrender.com/api/auth/login', {
+  const res = await axios.post('https://dzestate-back.azurewebsites.net/api/auth/login', {
     email: this.email,
     password: this.password,
    

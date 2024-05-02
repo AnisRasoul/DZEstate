@@ -56,7 +56,7 @@ export default {
   methods: {
     async register() {
   try {
-    const res = await axios.post('https://dzestate-back.onrender.com/api/auth/register', {
+    const res = await axios.post('https://dzestate-back.azurewebsites.net/api/auth/register', {
       username: this.username,
       email: this.email,
       password: this.password
