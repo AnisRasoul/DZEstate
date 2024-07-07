@@ -21,6 +21,7 @@
     "mongoose": "^8.3.2",
     "pinia": "^2.1.7",
     "radix-vue": "^1.7.1",
+    "swiper": "^11.1.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "vee-validate": "^4.12.6",

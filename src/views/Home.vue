@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="hero">
+    <section class="hero">
       <navbar/>
       <div class="flex flex-col justify-center items-center space-y-10 h-screen">
         <h1 class="text-white text-8xl font-bold">Find your dream house</h1>
@@ -18,20 +18,21 @@
         </div>
         <button class="text-white text-2xl bg-primary px-12 py-3 rounded-[25px]">Join us</button>
       </div>
-    </div>
+    </section>
       
-    <!-- Title -->
-    <div class="flex md:flex-col items-center justify-center md:text-9xl text-2xl text-center font-bold text-primary mx-80 my-28">
+  <section class="my-32 h-screen">
+     <div class="flex md:flex-col items-center justify-center md:text-9xl text-2xl text-center font-bold text-primary mx-80 my-28">
       <h1>We are available in </h1>
       <span class="text-primary">Popular wilayas</span>
     </div>
-    
-    <!-- Wilayas -->
+
     <div class="md:flex md:justify-around my-10">
       <WilayaCard v-for="wilaya in WilayaCards" :key="wilaya.id" :WilayaImg="wilaya.WilayaImg" :WilayaName="wilaya.WilayaName" />
     </div>
-    
-    <!-- Title -->
+  </section>
+   
+
+  <section class="my-32 h-screen">
     <div class="flex items-center my-20 space-x-96 justify-around">
       <h1 class="text-5xl font-bold text-black">Recently Added</h1>
       <div class="flex items-center space-x-12 font-bold">
@@ -48,28 +49,65 @@
         </div>
       </div>
     </div>
+     <Swiper
+        :modules="modules"
+        :slides-per-view="1"
+        :space-between="10"
+        :auto-height="true"
+        :navigation="clickable"
+        :breakpoints="{
+          640: { slidesPerView: 1, spaceBetween: 10 },
+          768: { slidesPerView: 2, spaceBetween: 10 },
+          1024: { slidesPerView: 3, spaceBetween: 10 },
+        }"
+        :loop="true"
+      >
+        <SwiperSlide v-for="card in filteredCards" :key="card.id" class="flex justify-center items-center mx-20">
+          <EstateCard
+            :card-image="card.cardImage"
+            :card-desc="card.cardDesc"
+            :card-price="card.cardPrice"
+            :card-owner="card.cardOwner"
+            :card-location="card.cardLocation"
+          />
+        </SwiperSlide>
+      </Swiper>
+  </section>
+     <section>
+        <Accordion type="single" class="grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-3 md:max-w-[70%] md:text-base max-w-[90%] mx-auto text-black  text-xs">
+        <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value" class="bg-white text-black border border-[#033C71] md:py-10 py-4 px-10 rounded-[15px]">
+          <AccordionTrigger class="md:text-2xl">{{ item.title }}</AccordionTrigger>
+          <AccordionContent>
+            {{ item.content }}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+     </section>
+     
+  
+<section class="my-32">
+  <h1 class="md:text-9xl text-2xl text-center font-bold text-primary my-10">Most <span>Popular Estates</span></h1>
+  <Swiper
+    :modules="modules"
+    :slides-per-view="1"
+    :centered-slides="true"
+    :space-between="10"
+    :auto-height="true"
+    :navigation="clickable"
+    :breakpoints="{
+      640: { slidesPerView: 1, spaceBetween: 10 },
+      768: { slidesPerView: 2, spaceBetween: 10 },
+      1024: { slidesPerView: 3, spaceBetween: 10 },
+    }"
+    :loop="true"
+  >
+    <SwiperSlide class="flex justify-center items-center">
+     <img src="../assets/carousel/img1.png" class="w-[200%]" alt="">
+    </SwiperSlide>
+  </Swiper>
+</section>
     
-    <!-- Houses -->
-    <div class='flex flex-wrap space-x-48 justify-center items-center'>
-      <EstateCard
-        class="my-5"
-        v-for="card in filteredCards"
-        :key="card.id"
-        :card-image="card.cardImage"
-        :card-desc="card.cardDesc"
-        :card-price="card.cardPrice"
-        :author-image="card.authorImage"
-      />
-    </div>
-    
-    <!-- Ad -->
-    <div class="md:mx-40 mx-2 bg-gradient-to-b from-[#7799B8] to-[#CBD1E0] rounded-[30px] my-20 border-b">
-      <div class="px-20 py-10">
-        <h1 class="text-white md:text-5xl text-3xl md:w-[30%] my-3 font-bold">Find your best Real Estate</h1>
-        <p class="text-primary md:my-5 text-2xl font-semibold">We provide a complete service for the sale, purchase, or rental of real estate</p>
-        <button class="md:px-8 md:py-4 py-2 px-6 text-white bg-primary rounded-[30px] font-semibold my-5">Contact us</button>
-      </div>
-    </div>
+   
 
     <Footing/>
   </div>
@@ -82,6 +120,14 @@ import navbar from '@/components/navbar.vue';
 import EstateCard from '@/components/EstateCard.vue'
 import WilayaCard from '@/components/WilayaCard.vue'
 import { Search, ChevronLeft, ChevronRight } from 'lucide-vue-next';
+import { Navigation, Pagination,  Autoplay, Scrollbar, A11y } from "swiper/modules";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 export default {
   components: {
@@ -91,8 +137,23 @@ export default {
     Footing,
     Search,
     ChevronLeft,
-    ChevronRight
+    ChevronRight,
+    Swiper,
+    SwiperSlide,
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger
   },
+  setup() {
+      return {
+        modules: [Navigation, Pagination, Scrollbar, A11y , Autoplay],
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      };
+    },
   computed: {
     ...mapState({
       WilayaCards: state => state.WilayaCards,
@@ -101,37 +162,194 @@ export default {
   data() {
     return {
       cards: [
-        { id: "1", cardImage: "https://i.imgur.com/m6zNa2M.png", cardDesc: "Roselands House", cardPrice: "$ 35.000.000", authorImage: "https://i.imgur.com/XyGcWhT.png" },
-        { id: "2", cardImage: "https://i.imgur.com/0noTBCy.png", cardDesc: "Woodlandside", cardPrice: "$ 20.000.000", authorImage: "https://i.imgur.com/MuJdT0U.png" },
-        { id: "3", cardImage: "https://i.imgur.com/xBA3Wnr.png", cardDesc: "The Old Lighthouse", cardPrice: "$ 44.000.000", authorImage: "https://i.imgur.com/Y8BlYcG.png" },
-        { id: "4", cardImage: "https://i.pinimg.com/564x/4e/eb/f7/4eebf76e28e11ed1236436bde506a32b.jpg", cardDesc: "Los santos villa", cardPrice: "$ 60.000.000", authorImage: "https://i.imgur.com/Y8BlYcG.png" },
-        { id: "5", cardImage: "https://i.pinimg.com/564x/37/a0/3f/37a03fa1fe6e4a034daf2d5994139a54.jpg", cardDesc: "New York villa", cardPrice: "$ 25.000.000", authorImage: "https://i.imgur.com/MuJdT0U.png" },
-        { id: "6", cardImage: "https://i.pinimg.com/564x/7f/dd/c1/7fddc173fa462b5346f07c8a6155068e.jpg", cardDesc: "Chicago villa", cardPrice: "$ 25.000.000", authorImage: "https://i.imgur.com/XyGcWhT.png" },
-        { id: "7", cardImage: "https://i.pinimg.com/564x/a9/8a/0a/a98a0ac85812d1f15585ad0d532dc177.jpg", cardDesc: "miami appartment", cardPrice: "$ 6.000.000", authorImage: "https://i.imgur.com/Y8BlYcG.png" },
-        { id: "8", cardImage: "https://i.pinimg.com/564x/12/03/a5/1203a5b0a01f302d6b4a6f65216158a5.jpg", cardDesc: "vegas appartment", cardPrice: "$ 5.000.000", authorImage: "https://i.imgur.com/MuJdT0U.png" },
-        { id: "9", cardImage: "https://i.pinimg.com/564x/60/22/d0/6022d07fc9bd655b14133901a6363cbd.jpg", cardDesc: "broklyn appartment", cardPrice: "$ 2.000.000", authorImage: "https://i.imgur.com/XyGcWhT.png" }
+        {
+    id: "1",
+    type: "house",
+    cardImage: "https://i.imgur.com/m6zNa2M.png",
+    cardDesc: "Maison des Roses",
+    cardPrice: "35.000.000 DZD",
+    cardOwner: "Anis Rasoul",
+    cardLocation: "Alger"
+  },
+  {
+    id: "2",
+    type: "house",
+    cardImage: "https://i.imgur.com/0noTBCy.png",
+    cardDesc: "Maison de la Forêt",
+    cardPrice: "20.000.000 DZD",
+    cardOwner: "Mohamed Ben Ahmed",
+    cardLocation: "Oran"
+  },
+  {
+    id: "3",
+    type: "house",
+    cardImage: "https://i.imgur.com/xBA3Wnr.png",
+    cardDesc: "Le Vieux Phare",
+    cardPrice: "44.000.000 DZD",
+    cardOwner: "Karim Boushra",
+    cardLocation: "Bejaia"
+  },
+  {
+    id: "4",
+    type: "villa",
+    cardImage: "https://i.pinimg.com/564x/4e/eb/f7/4eebf76e28e11ed1236436bde506a32b.jpg",
+    cardDesc: "Villa de Tizi Ouzou",
+    cardPrice: "60.000.000 DZD",
+    cardOwner: "Said Lahmar",
+    cardLocation: "Tizi Ouzou"
+  },
+  {
+    id: "5",
+    type: "villa",
+    cardImage: "https://i.pinimg.com/564x/37/a0/3f/37a03fa1fe6e4a034daf2d5994139a54.jpg",
+    cardDesc: "Villa de Constantine",
+    cardPrice: "25.000.000 DZD",
+    cardOwner: "Nadia Hamdi",
+    cardLocation: "Constantine"
+  },
+  {
+    id: "6",
+    type: "villa",
+    cardImage: "https://i.pinimg.com/564x/7f/dd/c1/7fddc173fa462b5346f07c8a6155068e.jpg",
+    cardDesc: "Villa de Annaba",
+    cardPrice: "25.000.000 DZD",
+    cardOwner: "Amine Zerguine",
+    cardLocation: "Annaba"
+  },
+  {
+    id: "7",
+    type: "apartment",
+    cardImage: "https://i.pinimg.com/564x/a9/8a/0a/a98a0ac85812d1f15585ad0d532dc177.jpg",
+    cardDesc: "Appartement de Blida",
+    cardPrice: "6.000.000 DZD",
+    cardOwner: "Farid Belhadi",
+    cardLocation: "Blida"
+  },
+  {
+    id: "8",
+    type: "apartment",
+    cardImage: "https://i.pinimg.com/564x/12/03/a5/1203a5b0a01f302d6b4a6f65216158a5.jpg",
+    cardDesc: "Appartement de Setif",
+    cardPrice: "5.000.000 DZD",
+    cardOwner: "Zohra Mehdi",
+    cardLocation: "Setif"
+  },
+  {
+    id: "9",
+    type: "apartment",
+    cardImage: "https://i.pinimg.com/564x/60/22/d0/6022d07fc9bd655b14133901a6363cbd.jpg",
+    cardDesc: "Appartement de Telemcen",
+    cardPrice: "2.000.000 DZD",
+    cardOwner: "Hakim Saidani",
+    cardLocation: "Tlemcen"
+  },
+  {
+    id: "10",
+    type: "house",
+    cardImage: "https://i.pinimg.com/236x/bf/e8/cb/bfe8cbf910ae9a09c3925911a8f934d0.jpg",
+    cardDesc: "Maison du Soleil",
+    cardPrice: "50.000.000 DZD",
+    cardOwner: "Fatima Zohra",
+    cardLocation: "Tipaza"
+  },
+  {
+    id: "11",
+    type: "house",
+    cardImage: "https://i.pinimg.com/236x/43/f6/05/43f6052917158e4d13a1bb2e390fce08.jpg",
+    cardDesc: "Maison de la Plage",
+    cardPrice: "30.000.000 DZD",
+    cardOwner: "Rachid Ali",
+    cardLocation: "Mostaganem"
+  },
+  {
+    id: "12",
+    type: "villa",
+    cardImage: "https://i.pinimg.com/236x/36/9e/ab/369eab7c1bae1285e66484281b203387.jpg",
+    cardDesc: "Villa des Palmiers",
+    cardPrice: "70.000.000 DZD",
+    cardOwner: "Laila Amar",
+    cardLocation: "Ghardaia"
+  },
+  {
+    id: "13",
+    type: "villa",
+    cardImage: "https://i.pinimg.com/236x/db/55/e3/db55e3ee350b0e5ee42b87199bceaf09.jpg",
+    cardDesc: "Villa des Jardins",
+    cardPrice: "80.000.000 DZD",
+    cardOwner: "Ahmed Youssef",
+    cardLocation: "Boumerdes"
+  },
+  {
+    id: "14",
+    type: "apartment",
+    cardImage: "https://i.pinimg.com/236x/b3/98/0c/b3980c8feb39dbe92a0c3498bda6c242.jpg",
+    cardDesc: "Appartement du Centre",
+    cardPrice: "4.500.000 DZD",
+    cardOwner: "Samiya Bouzid",
+    cardLocation: "Batna"
+  },
+  {
+    id: "15",
+    type: "apartment",
+    cardImage: "https://i.pinimg.com/236x/fd/2c/48/fd2c48f1f1646cbe73e2232be2451cba.jpg",
+    cardDesc: "Appartement de Luxe",
+    cardPrice: "10.000.000 DZD",
+    cardOwner: "Nour Elhouda",
+    cardLocation: "Alger"
+  }
       ],
+      accordionItems: [
+  { 
+    value: 'item-1', 
+    title: 'What types of properties do you offer?', 
+    content: 'At DZEstate, we offer a wide range of properties including houses, villas, apartments, and commercial spaces. Each property is carefully curated to meet your specific needs and preferences.' 
+  },
+  { 
+    value: 'item-2', 
+    title: 'How do I schedule a property viewing?', 
+    content: 'To schedule a property viewing, simply contact our team through our website or give us a call. We will be happy to arrange a convenient time for you to visit the property and explore its features.' 
+  },
+  { 
+    value: 'item-3', 
+    title: 'What financing options are available?', 
+    content: 'We offer various financing options to help you secure your dream property. Whether youre looking for mortgage advice or guidance on financing solutions, our experts are here to assist you every step of the way.' 
+  },
+  { 
+    value: 'item-4', 
+    title: 'Can I list my property with DZEstate?', 
+    content: 'Yes, we welcome property owners who wish to list their properties with us. Listing your property with DZEstate gives you access to our extensive network of potential buyers and renters, ensuring maximum exposure for your property.' 
+  },
+  { 
+    value: 'item-5', 
+    title: 'What additional services do you offer?', 
+    content: 'In addition to buying, selling, and renting properties, we offer property management services, investment consultations, and legal advice related to real estate transactions.' 
+  },
+  { 
+    value: 'item-6', 
+    title: 'Do you provide assistance for international clients?', 
+    content: 'Yes, we provide specialized assistance for international clients looking to invest in Algerian real estate. Our team can help navigate legal requirements, property regulations, and other considerations for international buyers.' 
+  }
+],
+
       filteredCards: []
     };
   },
   created() {
-    // Show house cards by default
-    this.filteredCards = this.cards.filter(card => ['1', '2', '3'].includes(card.id));
+    this.showHouseCards();
   },
   methods: {
     showHouseCards() {
-      this.filteredCards = this.cards.filter(card => ['1', '2', '3'].includes(card.id));
+      this.filteredCards = this.cards.filter(card => card.type === 'house');
     },
     showVillaCards() {
-      this.filteredCards = this.cards.filter(card => ['4', '5', '6'].includes(card.id));
+      this.filteredCards = this.cards.filter(card => card.type === 'villa');
     },
     showApartmentCards() {
-      this.filteredCards = this.cards.filter(card => ['7', '8', '9'].includes(card.id));
+      this.filteredCards = this.cards.filter(card => card.type === 'apartment');
     }
   }
 };
 </script>
-
 
 <style>
 .hero {
