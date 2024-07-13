@@ -60,11 +60,9 @@ router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const token = localStorage.getItem('token');
     if (token) {
-      // Token exists, consider user authenticated
       return next();
     }
-    // Token does not exist, redirect to login
-    return next('/Login');
+   return next('/Login');
   }
   next();
 });

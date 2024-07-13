@@ -1,11 +1,11 @@
 <template>
-    <div class="relative rounded-[25px] p-4 shadow-sm"> <!-- Parent with relative positioning -->
+    <div class="relative rounded-[25px] p-4 shadow-sm">
       <img :src="WilayaImg" alt="Wilaya Image" class="rounded-[10px] shadow-2xl shadow-black transition-transform duration-300 ease-in-out hover:scale-105" /> <!-- Image to be overlaid -->
       <h1
         class="absolute top-[20%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-4xl uppercase tracking-[15px]"
       >
         {{ WilayaName }}
-      </h1> <!-- Text overlaying the image, centered -->
+      </h1>
     </div>
   </template>
   

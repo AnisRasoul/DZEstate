@@ -3,8 +3,8 @@
     <section class="hero">
       <navbar/>
       <div class="flex flex-col justify-center items-center space-y-10 h-screen">
-        <h1 class="text-white text-8xl font-bold">Find your dream house</h1>
-        <p class="text-white text-2xl">Discover the Advantages of Pocket-Friendly Homes with DZ Estate</p>
+        <h1 class="text-white md:text-8xl text-4xl font-bold">Find your dream house</h1>
+        <p class="text-white md:text-2xl">Discover the Advantages of Pocket-Friendly Homes with DZ Estate</p>
         <div class="relative w-3/4 max-w-lg">
           <div class="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none">
             <span class="text-black font-semibold">For Sale</span>
@@ -21,31 +21,25 @@
     </section>
       
   <section class="my-32 h-screen">
-     <div class="flex md:flex-col items-center justify-center md:text-9xl text-2xl text-center font-bold text-primary mx-80 my-28">
+     <div class="flex flex-col items-center justify-center md:text-9xl text-4xl text-center font-bold text-primary md:mx-80 md:my-28">
       <h1>We are available in </h1>
       <span class="text-primary">Popular wilayas</span>
     </div>
 
-    <div class="md:flex md:justify-around my-10">
+    <div class="md:flex md:justify-around my-10 md:ml-0 ml-3">
       <WilayaCard v-for="wilaya in WilayaCards" :key="wilaya.id" :WilayaImg="wilaya.WilayaImg" :WilayaName="wilaya.WilayaName" />
     </div>
   </section>
    
 
-  <section class="my-32 h-screen">
-    <div class="flex items-center my-20 space-x-96 justify-around">
+  <section class="h-screen md:mt-0 mt-[200%]">
+    <div class="md:flex items-center my-20 md:space-x-96 justify-around md:space-y-0 space-y-6">
       <h1 class="text-5xl font-bold text-black">Recently Added</h1>
-      <div class="flex items-center space-x-12 font-bold">
-        <button class="bg-white text-primary border-2 border-primary px-5 py-2 rounded-[20px]" @click="showHouseCards">House</button>
-        <button class="bg-white text-primary border-2 border-primary px-5 py-2 rounded-[20px]" @click="showVillaCards">Villa</button>
-        <button class="bg-white text-primary border-2 border-primary px-5 py-2 rounded-[20px]" @click="showApartmentCards">Apartment</button>
-        <div class="flex items-center space-x-4">
-          <button class="bg-white text-primary border-2 border-primary p-2 rounded-full">
-            <ChevronLeft class="size-6"/>
-          </button>
-          <button class="bg-white text-primary border-2 border-primary p-2 rounded-full">
-            <ChevronRight class="size-6"/>
-          </button>
+      <div class="md:flex items-center md:space-x-12 font-bold md:space-y-0 space-y-6 md:mx-0 mx-2">
+        <div class="flex items-center md:space-x-12 space-x-5 mx-auto" >
+        <button class="bg-white text-primary border-2 border-primary px-5 py-2 rounded-[20px] hover:bg-primary hover:text-white" @click="showHouseCards">House</button>
+        <button class="bg-white text-primary border-2 border-primary px-5 py-2 rounded-[20px] hover:bg-primary hover:text-white" @click="showVillaCards">Villa</button>
+        <button class="bg-white text-primary border-2 border-primary px-5 py-2 rounded-[20px] hover:bg-primary hover:text-white" @click="showApartmentCards">Apartment</button>
         </div>
       </div>
     </div>
@@ -54,7 +48,8 @@
         :slides-per-view="1"
         :space-between="10"
         :auto-height="true"
-        :navigation="clickable"
+        :navigation="true"
+        :pagination="true"
         :breakpoints="{
           640: { slidesPerView: 1, spaceBetween: 10 },
           768: { slidesPerView: 2, spaceBetween: 10 },
@@ -73,7 +68,12 @@
         </SwiperSlide>
       </Swiper>
   </section>
-     <section>
+     <section class="mb-32">
+      <div class="text-center">
+         <h1 class="text-primary text-6xl font-bold">Frequently Asked Questions</h1>
+      <p class="text-xl w-[80%] mx-auto font-medium my-10">Find answers to common questions about DZEstate’s services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way.</p>
+     
+      </div>
         <Accordion type="single" class="grid grid-cols-1 md:grid-cols-2 md:gap-8 gap-3 md:max-w-[70%] md:text-base max-w-[90%] mx-auto text-black  text-xs">
         <AccordionItem v-for="item in accordionItems" :key="item.value" :value="item.value" class="bg-white text-black border border-[#033C71] md:py-10 py-4 px-10 rounded-[15px]">
           <AccordionTrigger class="md:text-2xl">{{ item.title }}</AccordionTrigger>
@@ -83,32 +83,6 @@
         </AccordionItem>
       </Accordion>
      </section>
-     
-  
-<section class="my-32">
-  <h1 class="md:text-9xl text-2xl text-center font-bold text-primary my-10">Most <span>Popular Estates</span></h1>
-  <Swiper
-    :modules="modules"
-    :slides-per-view="1"
-    :centered-slides="true"
-    :space-between="10"
-    :auto-height="true"
-    :navigation="clickable"
-    :breakpoints="{
-      640: { slidesPerView: 1, spaceBetween: 10 },
-      768: { slidesPerView: 2, spaceBetween: 10 },
-      1024: { slidesPerView: 3, spaceBetween: 10 },
-    }"
-    :loop="true"
-  >
-    <SwiperSlide class="flex justify-center items-center">
-     <img src="../assets/carousel/img1.png" class="w-[200%]" alt="">
-    </SwiperSlide>
-  </Swiper>
-</section>
-    
-   
-
     <Footing/>
   </div>
 </template>

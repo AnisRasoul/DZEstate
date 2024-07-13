@@ -1,23 +1,19 @@
 <template>
-  <div class="flex justify-around items-center space-x-32">
-    <!-- Logo and Site Name -->
-    <div class="flex items-center">
+  <div class="flex justify-around items-center md:space-x-32">
+     <div class="flex items-center">
       <router-link to="/">
         <img src="../assets/hero/logo.svg" class="h-24" alt="DZEstate Logo" />
       </router-link>
       <h1 class="text-4xl font-extrabold text-white">DZEstate</h1>
     </div>
     
-    <!-- Navigation Links -->
-    <div class="flex items-center space-x-20">
+    <div class="md:flex md:items-center md:space-x-20 hidden">
       <router-link to="/" class="uppercase text-white hover:text-primary font-sans font-bold">Home</router-link>
       <router-link to="/buy" class="uppercase text-white hover:text-primary font-sans font-bold">Buy</router-link>
       <router-link to="/sell" class="uppercase text-white hover:text-primary font-sans font-bold">Sell</router-link>
       <router-link to="/rent" class="uppercase text-white hover:text-primary font-sans font-bold">Rent</router-link>
     </div>
-
-    <!-- User Options and Language Selector -->
-    <div class="flex items-center space-x-5">
+ <div class="md:flex md:items-center md:space-x-5 hidden">
       <button v-if="!isLoggedIn" class="bg-primary text-white px-10 py-2 rounded-[20px]">
         <router-link to="login" >Login</router-link>
         
@@ -25,8 +21,6 @@
       <button v-else class="bg-primary text-white px-10 py-2 rounded" @click="logout">
         Logout
       </button>
-      
-      <!-- Dashboard Button only when logged in -->
       <router-link v-if="isLoggedIn" to="/dashboard" class="bg-primary text-white px-10 py-2 rounded">
         <User/>
       </router-link>

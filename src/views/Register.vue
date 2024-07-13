@@ -1,6 +1,5 @@
 <template>
   <div class="md:min-h-screen md:grid md:grid-cols-2">
-    <!-- Left Panel with Gradient Background -->
     <div class="Login md:p-20 md:text-white md:flex md:flex-col md:justify-center md:space-y-10 hidden">
       <h1 class="text-8xl font-bold -tracking-tighter">DZEstate</h1>
       <p class="text-3xl mt-3 tracking-[5px] uppercase">The most popular estate website of DZ</p>
@@ -9,7 +8,6 @@
       </Button>
     </div>
 
-    <!-- Right Panel with Form -->
     <div class="bg-white p-12 flex flex-col justify-center">
       <h2 class="text-5xl font-bold mb-3 mx-auto text-primary uppercase text-center">Create an account</h2>
 
